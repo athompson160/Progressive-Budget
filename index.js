@@ -128,3 +128,26 @@ function sendTransaction(isAdding) {
       }
     })
     .catch(err => {
+     // fetch failed, so save in indexed db
+      saveRecord(transaction);
+
+      // clear form
+      nameEl.value = "";
+      amountEl.value = "";
+    });
+}
+
+document.querySelector("#add-btn").addEventListener("click", function(event) {
+  event.preventDefault();
+  sendTransaction(true);
+});
+
+document.querySelector("#sub-btn").addEventListener("click", function(event) {
+  event.preventDefault();
+  sendTransaction(false);
+});
+
+document.querySelector("#del-btn").addEventListener("click", function(event) {
+  event.preventDefault();
+  deletePending();
+});
